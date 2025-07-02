@@ -1,0 +1,210 @@
+Watching for file changes with StatReloader
+Internal Server Error: /api/generate-response/
+[02/Jul/2025 04:56:53] "POST /api/generate-response/ HTTP/1.1" 500 95
+/home/swarm/code_projects/sparkling_raincoat/AutoAgent/api/views.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 02, 2025 - 04:56:50
+Django version 4.2, using settings 'ai_agent_generator.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+✅ GitHub Models available (key found)
+✅ OpenRouter available (key found)
+✅ Together AI available (key found)
+🔄 Multi-API Rotation Provider initialized
+   Available providers: ['github_models', 'openrouter', 'together_ai']
+   Current provider: github_models
+Watching for file changes with StatReloader
+Internal Server Error: /api/generate-response/
+[02/Jul/2025 05:01:28] "POST /api/generate-response/ HTTP/1.1" 500 117
+/home/swarm/code_projects/sparkling_raincoat/AutoAgent/api/views.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 02, 2025 - 05:01:20
+Django version 4.2, using settings 'ai_agent_generator.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+✅ GitHub Models available (key found)
+✅ OpenRouter available (key found)
+✅ Together AI available (key found)
+🔄 Multi-API Rotation Provider initialized
+   Available providers: ['github_models', 'openrouter', 'together_ai']
+   Current provider: github_models
+Watching for file changes with StatReloader
+/home/swarm/code_projects/sparkling_raincoat/venv/lib/python3.12/site-packages/django/core/handlers/base.py:197: RuntimeWarning: coroutine 'BaseOpenAIChatCompletionClient.create' was never awaited
+  response = wrapped_callback(request, *callback_args, **callback_kwargs)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+Internal Server Error: /api/generate-response/
+[02/Jul/2025 05:02:01] "POST /api/generate-response/ HTTP/1.1" 500 76
+/home/swarm/code_projects/sparkling_raincoat/AutoAgent/api/views.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 02, 2025 - 05:01:56
+Django version 4.2, using settings 'ai_agent_generator.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+✅ GitHub Models available (key found)
+✅ OpenRouter available (key found)
+✅ Together AI available (key found)
+🔄 Multi-API Rotation Provider initialized
+   Available providers: ['github_models', 'openrouter', 'together_ai']
+   Current provider: github_models
+Watching for file changes with StatReloader
+Internal Server Error: /api/generate-response/
+[02/Jul/2025 05:02:23] "POST /api/generate-response/ HTTP/1.1" 500 66
+/home/swarm/code_projects/sparkling_raincoat/AutoAgent/api/views.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 02, 2025 - 05:02:17
+Django version 4.2, using settings 'ai_agent_generator.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+✅ GitHub Models available (key found)
+✅ OpenRouter available (key found)
+✅ Together AI available (key found)
+🔄 Multi-API Rotation Provider initialized
+   Available providers: ['github_models', 'openrouter', 'together_ai']
+   Current provider: github_models
+Watching for file changes with StatReloader
+/home/swarm/code_projects/sparkling_raincoat/AutoAgent/api/views.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 02, 2025 - 05:02:31
+Django version 4.2, using settings 'ai_agent_generator.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+/home/swarm/code_projects/sparkling_raincoat/AutoAgent/api/views.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 02, 2025 - 05:03:46
+Django version 4.2, using settings 'ai_agent_generator.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+Internal Server Error: /api/generate-response/
+Traceback (most recent call last):
+  File "/home/swarm/code_projects/sparkling_raincoat/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/swarm/code_projects/sparkling_raincoat/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/swarm/code_projects/sparkling_raincoat/AutoAgent/api/views.py", line 70, in generate_response
+    return JsonResponse({'response': model_response, 'provider': provider_name})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/swarm/code_projects/sparkling_raincoat/venv/lib/python3.12/site-packages/django/http/response.py", line 748, in __init__
+    data = json.dumps(data, cls=encoder, **json_dumps_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/swarm/code_projects/sparkling_raincoat/venv/lib/python3.12/site-packages/django/core/serializers/json.py", line 106, in default
+    return super().default(o)
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type RequestUsage is not JSON serializable
+[02/Jul/2025 05:04:30] "POST /api/generate-response/ HTTP/1.1" 500 95798
+/home/swarm/code_projects/sparkling_raincoat/AutoAgent/api/views.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 02, 2025 - 05:04:17
+Django version 4.2, using settings 'ai_agent_generator.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+✅ GitHub Models available (key found)
+✅ OpenRouter available (key found)
+✅ Together AI available (key found)
+🔄 Multi-API Rotation Provider initialized
+   Available providers: ['github_models', 'openrouter', 'together_ai']
+   Current provider: github_models
+Watching for file changes with StatReloader
+[02/Jul/2025 05:36:21] "POST /api/generate-response/ HTTP/1.1" 200 381
+/home/swarm/code_projects/sparkling_raincoat/AutoAgent/api/views.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 02, 2025 - 05:36:11
+Django version 4.2, using settings 'ai_agent_generator.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+✅ GitHub Models available (key found)
+✅ OpenRouter available (key found)
+✅ Together AI available (key found)
+🔄 Multi-API Rotation Provider initialized
+   Available providers: ['github_models', 'openrouter', 'together_ai']
+   Current provider: github_models
+Watching for file changes with StatReloader
+[02/Jul/2025 05:50:21] "POST /api/generate-response/ HTTP/1.1" 200 567
+[02/Jul/2025 05:50:31] "POST /api/generate-response/ HTTP/1.1" 200 381
+[02/Jul/2025 05:50:37] "POST /api/generate-response/ HTTP/1.1" 200 488
+/home/swarm/code_projects/sparkling_raincoat/AutoAgent/ai_agent_generator/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 02, 2025 - 05:37:23
+Django version 4.2, using settings 'ai_agent_generator.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+✅ GitHub Models available (key found)
+✅ OpenRouter available (key found)
+✅ Together AI available (key found)
+🔄 Multi-API Rotation Provider initialized
+   Available providers: ['github_models', 'openrouter', 'together_ai']
+   Current provider: github_models
+✅ GitHub Models available (key found)
+✅ OpenRouter available (key found)
+✅ Together AI available (key found)
+🔄 Multi-API Rotation Provider initialized
+   Available providers: ['github_models', 'openrouter', 'together_ai']
+   Current provider: github_models
+✅ GitHub Models available (key found)
+✅ OpenRouter available (key found)
+✅ Together AI available (key found)
+🔄 Multi-API Rotation Provider initialized
+   Available providers: ['github_models', 'openrouter', 'together_ai']
+   Current provider: github_models
+Watching for file changes with StatReloader
+/home/swarm/code_projects/sparkling_raincoat/AutoAgent/ai_agent_generator/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 02, 2025 - 06:02:13
+Django version 4.2, using settings 'ai_agent_generator.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+/home/swarm/code_projects/sparkling_raincoat/AutoAgent/ai_agent_generator/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 02, 2025 - 06:02:33
+Django version 4.2, using settings 'ai_agent_generator.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader

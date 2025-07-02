@@ -1,3 +1,20 @@
+def to_serializable(obj):
+    """Recursively convert objects to JSON-serializable types."""
+    if isinstance(obj, dict):
+        return {k: to_serializable(v) for k, v in obj.items()}
+    elif isinstance(obj, (list, tuple)):
+        return [to_serializable(v) for v in obj]
+    elif hasattr(obj, "_asdict"):  # namedtuple
+        return to_serializable(obj._asdict())
+    elif hasattr(obj, "__dict__"):
+        return to_serializable(vars(obj))
+    elif hasattr(obj, "__str__") and not isinstance(obj, (str, bytes)):
+        try:
+            return str(obj)
+        except Exception:
+            return None
+    else:
+        return obj
 
 from django.http import JsonResponse
 import json
@@ -50,14 +67,18 @@ Here is the provided documentation:
         rotator = MultiAPIRotationProvider(enable_rotation=True, debug=True)
         client, provider_name = rotator.get_client()
         try:
-            # The client is expected to have an 'acompletion' or 'completion' method (OpenAI-compatible)
+            # The client is expected to have a 'create' method (OpenAI-compatible)
             # We'll use a synchronous call for simplicity
-            response = client.completion(
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=1024,
-                temperature=0.2,
-            )
-            model_response = response if isinstance(response, dict) else response.__dict__
+            import asyncio
+            from autogen_core.models._types import UserMessage
+            response = asyncio.run(client.create(
+                messages=[UserMessage(content=prompt, source="user")],
+                extra_create_args={
+                    "max_tokens": 1024,
+                    "temperature": 0.2
+                }
+            ))
+            model_response = to_serializable(response)
         except Exception as e:
             return JsonResponse({'error': f'LLM call failed: {str(e)}'}, status=500)
 
