@@ -1,0 +1,16 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "AutoAgent: Run Django Server",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "run_autoagent_server.sh"
+            ],
+            "isBackground": true,
+            "group": "build",
+            "problemMatcher": []
+        }
+    ]
+}

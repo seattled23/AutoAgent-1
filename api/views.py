@@ -1,20 +1,16 @@
+
 from django.http import JsonResponse
-import boto3
 import json
 import os
-from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .launchdarkly_client import ld_client
-from ldclient import Context
 import textwrap
 import logging
-
-bedrock_client = boto3.client(
-    service_name='bedrock-runtime',
-    aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-    aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
-    region_name=os.getenv('AWS_REGION')
-)
+import sys
+# Add the Sparkling Raincoat project root to sys.path for imports
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+from api_rotation.multi_api_rotation_provider import MultiAPIRotationProvider
 
 
 
@@ -37,60 +33,35 @@ def generate_response(request):
         user_message = data.get('user_message', '')
         documentation = data.get('documentation', '')
 
-        model_id = "meta.llama3-8b-instruct-v1:0"
-
-        context = Context.builder("agent-instruction").build()
-        instruction_flag = ld_client.variation("agent-instruction", context, "default_instruction")
-
+        # Compose prompt for the LLM
         prompt = f"""
-        <|begin_of_text|>
-        <|start_header_id|>user<|end_header_id|>
+If the documentation is provided respond only with the python code. Don't add any string. Only write python code.
+Please respect the indentation since the code provided will directly be used with this method:
+exec(textwrap.dedent(model_response['generation']), exec_globals, exec_locals)
 
-        If the documentation is provided respond only with the python code. Don't add any string. Only write python code.
-        Please respect the indentation since the code provided will directly be used with this method :
+Here is the user ask:
+{user_message}
 
-        exec(textwrap.dedent(model_response['generation']), exec_globals, exec_locals)
+Here is the provided documentation:
+{documentation}
+"""
 
-        {instruction_flag}
+        # Use the free API rotator
+        rotator = MultiAPIRotationProvider(enable_rotation=True, debug=True)
+        client, provider_name = rotator.get_client()
+        try:
+            # The client is expected to have an 'acompletion' or 'completion' method (OpenAI-compatible)
+            # We'll use a synchronous call for simplicity
+            response = client.completion(
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=1024,
+                temperature=0.2,
+            )
+            model_response = response if isinstance(response, dict) else response.__dict__
+        except Exception as e:
+            return JsonResponse({'error': f'LLM call failed: {str(e)}'}, status=500)
 
-        Here is the user ask :
-
-        {user_message}
-
-        here is the provided documentation :
-
-        {documentation}
-
-        <|eot_id|>
-        <|start_header_id|>assistant<|end_header_id|>
-
-        """
-
-        request = {
-            "prompt": prompt
-        }
-
-        response = bedrock_client.invoke_model(body=json.dumps(request), modelId=model_id)
-        model_response = json.loads(response["body"].read())
-
-        if 'import' in model_response['generation']:
-
-            exec_globals = {}
-            exec_locals = {}
-
-            model_response_str = str(model_response['generation'])
-            cleaned_code = "\n".join(line.strip() for line in model_response_str.splitlines())
-
-
-            exec(cleaned_code, exec_globals, exec_locals)
-
-            # If you need to capture the output of the executed code, consider using exec with a custom namespace
-            result = exec_locals
-
-            return JsonResponse({'response': model_response})
-
-        else:
-            print("Documentation not provided")
-
-        return JsonResponse({'response': model_response})
+        # Optionally execute the code if desired (CAUTION: security risk)
+        # For now, just return the generated code
+        return JsonResponse({'response': model_response, 'provider': provider_name})
     return JsonResponse({'error': 'Invalid request method'}, status=400)
